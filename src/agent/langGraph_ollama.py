@@ -23,6 +23,7 @@ langchain_project = os.getenv("LANGCHAIN_PROJECT")
 print(f"LANGCHAIN_API_KEY: {langchain_api_key}")
 print(f"LANGCHAIN_TRACING_V2: {langchain_tracing_v2}")
 print(f"LANGCHAIN_PROJECT: {langchain_project}")
+print(f"LANGCHAIN_PROJECT: {OLLAMA_MODEL}")
 
 #--------------------------------------------------------------------
 # Tool and llama3.1
@@ -34,7 +35,7 @@ tools = [tool]
 
 # LLM (llama3.1) 
 llm = ChatOllama(
-    model="llama3.1:8b", 
+    model=OLLAMA_MODEL, 
     temperature=0, 
     base_url="http://localhost:11434"
 )
