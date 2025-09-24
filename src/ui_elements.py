@@ -17,7 +17,6 @@ def sidebar_inputs():
     # 在 sidebar 建立一個容器，讓按鈕顯示在最上面
     top_container = st.sidebar.container()
     run = top_container.button('🚀 載入並執行分析', key='run_button')
-    #st.sidebar.markdown("---")  # 分隔線
  
     st.sidebar.header('查詢條件')
     year = st.sidebar.number_input('民國年 (年)', min_value=100, max_value=200, value=114, key="query_year")

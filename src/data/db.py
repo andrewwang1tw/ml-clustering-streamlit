@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 from sqlalchemy import create_engine
+import os
 
 #--------------------------------------------------------------------------------
 # make_engine
@@ -29,3 +30,21 @@ def load_sales_data(_engine, year=114, month_from=1):
     """
     df = pd.read_sql(query, _engine)
     return df
+
+
+def load_sales_data_from_csv():
+    file_path = "data/stock.csv"    
+    
+    #script_dir = os.path.dirname(os.path.abspath(__file__))    
+    #file_path = os.path.join(script_dir, "stock.csv")
+    try:
+        df = pd.read_csv(file_path)     
+        print("\n已成功讀取 Excel 檔案：", file_path)
+        return df
+    
+    except FileNotFoundError:
+        print(f"\n錯誤：找不到檔案 '{file_path}'。請確認檔案已上傳至 GitHub 儲存庫。")
+    except Exception as e:
+        print(f"\n發生錯誤：{e}")
+    
+    return None

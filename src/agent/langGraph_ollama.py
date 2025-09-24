@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 import os
-import json
+import streamlit as st
 
 from langchain_tavily import TavilySearch
 from langchain_ollama import ChatOllama
@@ -19,6 +19,13 @@ TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 langchain_api_key = os.getenv("LANGCHAIN_API_KEY")
 langchain_tracing_v2 = os.getenv("LANGCHAIN_TRACING_V2")
 langchain_project = os.getenv("LANGCHAIN_PROJECT")
+
+# Read secrets from Streamlit Cloud's secrets manager
+OLLAMA_MODEL = st.secrets.get("OLLAMA_MODEL")
+TAVILY_API_KEY = st.secrets.get("TAVILY_API_KEY")
+LANGCHAIN_API_KEY = st.secrets.get("LANGCHAIN_API_KEY")
+LANGCHAIN_TRACING_V2 = st.secrets.get("LANGCHAIN_TRACING_V2")
+LANGCHAIN_PROJECT = st.secrets.get("LANGCHAIN_PROJECT")
 
 print(f"LANGCHAIN_API_KEY: {langchain_api_key}")
 print(f"LANGCHAIN_TRACING_V2: {langchain_tracing_v2}")

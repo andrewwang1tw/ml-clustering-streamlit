@@ -4,7 +4,7 @@ from sklearn.decomposition import PCA
 from kneed import KneeLocator
 import streamlit as st
 import numpy as np
-from data.db import make_engine, load_sales_data
+from data.db import make_engine, load_sales_data, load_sales_data_from_csv
 
 
 #------------------------------------------------------------------------------------
@@ -17,10 +17,13 @@ from data.db import make_engine, load_sales_data
 #------------------------------------------------------------------------------------
 def run_analysis(params):    
     # 1. 取資料
-    engine = make_engine(params['server'], params['database'], trusted=params['trusted'])
-    df_raw = load_sales_data(engine, year=params['year'], month_from=params['month_from'])    
-    print("\n======> [run_analysis], df_raw ===>\n", df_raw)
+    #engine = make_engine(params['server'], params['database'], trusted=params['trusted'])
+    #df_raw = load_sales_data(engine, year=params['year'], month_from=params['month_from'])    
     
+    #     
+    df_raw = load_sales_data_from_csv()
+    print("\n======> [run_analysis], df_raw ===>\n", df_raw)
+
     #--- ---
     df_wide = to_wide(df_raw)
     print("\n======> [run_analysis], df_wide ===>\n", df_wide)
