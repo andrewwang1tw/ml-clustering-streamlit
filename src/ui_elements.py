@@ -494,7 +494,7 @@ def set_font():
     #     matplotlib.rcParams['font.family'] = 'Noto Sans CJK TC'  
     
     # Force Matplotlib to rebuild its font cache to detect newly installed fonts.
-    fm._rebuild()
+    fm.rebuild()
 
     sns.set_theme(style="whitegrid")    
     matplotlib.rcParams['axes.unicode_minus'] = False
