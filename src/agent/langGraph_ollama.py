@@ -32,8 +32,6 @@ print(f"LANGCHAIN_TRACING_V2: {langchain_tracing_v2}")
 print(f"LANGCHAIN_PROJECT: {langchain_project}")
 print(f"LANGCHAIN_PROJECT: {OLLAMA_MODEL}")
 
-OLLAMA_MODEL = 'gpt-oss:120b-cloud'
-
 #--------------------------------------------------------------------
 # Tool and llama3.1
 #--------------------------------------------------------------------
