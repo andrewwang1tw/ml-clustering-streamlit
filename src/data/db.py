@@ -33,10 +33,10 @@ def load_sales_data(_engine, year=114, month_from=1):
 
 
 def load_sales_data_from_csv():
-    file_path = "data/stock.csv"    
+    #file_path = "data/stock.csv"    
     
-    #script_dir = os.path.dirname(os.path.abspath(__file__))    
-    #file_path = os.path.join(script_dir, "stock.csv")
+    script_dir = os.path.dirname(os.path.abspath(__file__))    
+    file_path = os.path.join(script_dir, "stock.csv")
     try:
         df = pd.read_csv(file_path)     
         print("\n已成功讀取 Excel 檔案：", file_path)
