@@ -9,6 +9,7 @@ import plotly.express as px
 import seaborn as sns
 from agent.langGraph_ollama import stream_graph_updates, stream_ollama_updates
 import base64
+import matplotlib.font_manager as fm
 
 #-----------------------------------------------------------------------------------
 # 顯示 sidebar 輸入元件，回傳所有參數值
@@ -482,15 +483,30 @@ def show_cluster_mom_yoy(df_clustered, page_size=10):
 # set_font 中文
 #-----------------------------------------------------------------------------------       
 def set_font():       
-    sns.set_theme(style="whitegrid")  # 你也可以選 whitegrid, darkgrid, ticks 等
+    # sns.set_theme(style="whitegrid")  # 你也可以選 whitegrid, darkgrid, ticks 等    
+    # matplotlib.rcParams['axes.unicode_minus'] = False
     
+    # if platform.system() == "Windows":
+    #     matplotlib.rcParams['font.family'] = 'Microsoft JhengHei'
+    # elif platform.system() == "Darwin":
+    #     matplotlib.rcParams['font.family'] = 'Heiti TC'
+    # else:
+    #     matplotlib.rcParams['font.family'] = 'Noto Sans CJK TC'  
+    
+    # Force Matplotlib to rebuild its font cache to detect newly installed fonts.
+    fm._rebuild()
+
+    sns.set_theme(style="whitegrid")    
     matplotlib.rcParams['axes.unicode_minus'] = False
+    
+    # Check the operating system
     if platform.system() == "Windows":
         matplotlib.rcParams['font.family'] = 'Microsoft JhengHei'
     elif platform.system() == "Darwin":
         matplotlib.rcParams['font.family'] = 'Heiti TC'
-    else:
-        matplotlib.rcParams['font.family'] = 'Noto Sans CJK TC'  
+    else:  # Assumed to be Linux, e.g., Streamlit Cloud
+        # This will now correctly find the font because it's been installed and the cache is rebuilt.
+        matplotlib.rcParams['font.family'] = 'Noto Sans CJK TC'
     
 #-----------------------------------------------------------------------------------
 # set_layout
