@@ -7,7 +7,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 import plotly.express as px
 import seaborn as sns
-from agent.langGraph_ollama import stream_graph_updates, stream_ollama_updates
+#from agent.langGraph_ollama import stream_graph_updates, stream_ollama_updates
+#from agent.langGraph_openai import stream_graph_updates, stream_ollama_updates
+from agent.langGraph_gemini import stream_graph_updates, stream_ollama_updates
 import base64
 import matplotlib.font_manager as fm
 
