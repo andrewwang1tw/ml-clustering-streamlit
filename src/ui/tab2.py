@@ -96,8 +96,7 @@ def tab2_show_elbow_plot2(k_min: int, k_max: int, inertias: List[float], use_k: 
     # 確保同時顯示線和點 (這是 Elbow Plot 必要的視覺呈現)
     fig2.update_traces(
         mode='lines+markers',
-        marker=dict(size=8),
-        # 對於非 Elbow K 的點，可以讓它們顏色變淡
+        marker=dict(size=8),    # 對於非 Elbow K 的點，可以讓它們顏色變淡        
         selector=dict(name='Other K') 
     )
 
