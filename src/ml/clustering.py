@@ -17,20 +17,20 @@ from data.db import make_engine, load_sales_data, load_sales_data_from_csv
 #------------------------------------------------------------------------------------
 def run_analysis(params):    
     # 1. 取資料
-    #engine = make_engine(params['server'], params['database'], trusted=params['trusted'])
-    #df_raw = load_sales_data(engine, year=params['year'], month_from=params['month_from'])    
+    engine = make_engine(params['server'], params['database'], trusted=params['trusted'])
+    df_raw = load_sales_data(engine, year=params['year'], month_from=params['month_from'])    
     
     #     
-    df_raw = load_sales_data_from_csv()
-    print("\n======> [run_analysis], df_raw ===>\n", df_raw)
+    #df_raw = load_sales_data_from_csv()
+    #print("\n======> [run_analysis], df_raw ===>\n", df_raw)
 
     #--- ---
     df_wide = to_wide(df_raw)
     print("\n======> [run_analysis], df_wide ===>\n", df_wide)
     
     # 2. 特徵工程    
-    mom_cols = sorted([c for c in df_wide.columns if c.startswith('月增_')])
-    yoy_cols = sorted([c for c in df_wide.columns if c.startswith('年增_')]) 
+    mom_cols = sorted([c for c in df_wide.columns if c.startswith('MoM_')])
+    yoy_cols = sorted([c for c in df_wide.columns if c.startswith('YoY_')]) 
     
     # --- continus_flag, 近 n 個月的 MoM/YoY 都 > 0 ---
     last_n = params['last_n_months']
@@ -172,12 +172,12 @@ def feature_engineer(df_wide, mom_months, yoy_months):
     df['continuous_flag'] = df.apply(check_growth, axis=1)
 
     # Add MoM 特徵
-    mom_cols = [c for c in df.columns if c.startswith('月增_')]
+    mom_cols = [c for c in df.columns if c.startswith('MoM_')]
     df['avg_mom'] = df[mom_cols].mean(axis=1)
     df['std_mom'] = df[mom_cols].std(axis=1)
 
     # Add YoY 特徵
-    yoy_cols = [c for c in df.columns if c.startswith('年增_')]
+    yoy_cols = [c for c in df.columns if c.startswith('YoY_')]
     df['avg_yoy'] = df[yoy_cols].mean(axis=1)
     df['std_yoy'] = df[yoy_cols].std(axis=1)
 
@@ -212,7 +212,7 @@ def remove_high_corr(df, threshold=0.9, exclude_cols=None):
 # 
 #-----------------------------------------------------------------------------------
 def to_wide(df):
-    df_pivot = df.pivot(index=['stock_id', 'stock_name'], columns='年月', values=['月增', '年增'])
+    df_pivot = df.pivot(index=['stock_id', 'stock_name'], columns='YM', values=['MoM', 'YoY'])
     df_wide = df_pivot.reset_index()
     
     # flatten multiindex columns

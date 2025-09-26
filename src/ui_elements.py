@@ -423,7 +423,7 @@ def show_cluster_details(df_clustered, page_size=10):
         
         # --- Use LangGraph --- 
         user_input = f"""
-            Summary Taiwan stock {str(selected_id)}.TW for basic information and recent stock price, company operation and related news.             
+            Summary Taiwan stock {str(selected_id)}.TW for the most recent 6 months basic information, stock price, company operation and related news.             
             Include domain will be https://tw.stock.yahoo.com/ , https://www.cnyes.com/ , https://www.ctee.com.tw/ and https://money.udn.com/ .            
             If you can not find related information just say "no information found!" directly.             
             Finally, must answer in Traditional Chinese.                                              
@@ -465,7 +465,7 @@ def show_cluster_mom_yoy(df_clustered, page_size=10):
     cluster_df = df_clustered[df_clustered['cluster'] == cluster_index]
     
     # MoM 時序
-    mom_cols_all = sorted([c for c in df_clustered.columns if c.startswith('月增_')])
+    mom_cols_all = sorted([c for c in df_clustered.columns if c.startswith('MoM_')])
     if len(cluster_df) > 0 and mom_cols_all:
         st.write('📈 **MoM 時間序列**')
         mom_data = cluster_df[mom_cols_all].T
@@ -473,7 +473,7 @@ def show_cluster_mom_yoy(df_clustered, page_size=10):
         st.line_chart(mom_data)
         
     # YoY 時序
-    yoy_cols_all = sorted([c for c in df_clustered.columns if c.startswith('年增_')])
+    yoy_cols_all = sorted([c for c in df_clustered.columns if c.startswith('YoY_')])
     if len(cluster_df) > 0 and yoy_cols_all:
         st.write('📈 **YoY 時間序列**')
         yoy_data = cluster_df[yoy_cols_all].T

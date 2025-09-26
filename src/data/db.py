@@ -20,10 +20,10 @@ def make_engine(server, database, driver='ODBC Driver 17 for SQL Server', truste
 @st.cache_data(ttl=3600)
 def load_sales_data(_engine, year=114, month_from=1):
     query = f"""
-    SELECT 公司代號 AS stock_id, 公司名稱 AS stock_name, (年+1911)*100+月 as 年月,
-        上月比較增減百分比 as 月增,
-        去年同月增減百分比 as 年增,
-        當月營收
+    SELECT 公司代號 AS stock_id, 公司名稱 AS stock_name, (年+1911)*100+月 as YM,
+        上月比較增減百分比 as MoM,
+        去年同月增減百分比 as YoY,
+        當月營收 SALE
     FROM T_SALES_M
     WHERE 年 = {year} AND 月 >= {month_from} AND LEN(公司代號)=4
     ORDER BY 公司代號, 年, 月 DESC
