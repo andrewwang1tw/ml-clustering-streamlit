@@ -1,7 +1,15 @@
 import streamlit as st
 from ml.clustering import run_analysis
-import ui_elements as ui
 
+#import ui_elements as ui
+import ui.ui_main as ui
+from ui.tab0 import tab0_show_sales_data
+from ui.tab1 import tab1_show_correlation_heatmap
+from ui.tab2 import tab2_show_elbow_plot
+from ui.tab3 import tab3_show_pca_2d, tab3_show_pca_3d
+from ui.tab4 import tab4_show_cluster_feature_boxplots, tab4_show_cluster_summary
+from ui.tab5 import tab5_show_cluster_details
+from ui.tab6 import tab6_show_cluster_mom_yoy
 
 def main():
     ui.set_font()
@@ -41,32 +49,40 @@ def main():
 
         # Tab 0: 資料  
         with tab0:
-            ui.show_sales_data(df_raw, df_feature)
+            #ui.show_sales_data(df_raw, df_feature)
+            tab0_show_sales_data(df_raw, df_feature)
             
         with tab1:
-            ui.show_correlation_heatmap(corr_before, corr_after, dropped=dropped)
-        
+            #ui.show_correlation_heatmap(corr_before, corr_after, dropped=dropped)
+            tab1_show_correlation_heatmap(corr_before, corr_after, dropped=dropped)
+            
         # Tab2: Elbow
         with tab2:
-            ui.show_elbow_plot(params_saved['k_min'], params_saved['k_max'], inertias, use_k, elbow_k)
+            #ui.show_elbow_plot(params_saved['k_min'], params_saved['k_max'], inertias, use_k, elbow_k)
+            tab2_show_elbow_plot(params_saved['k_min'], params_saved['k_max'], inertias, use_k, elbow_k)
 
         # Tab3: PCA
         with tab3:
-            ui.show_pca_3d(df_clustered, pca3=st.session_state.get('pca3', None), features=features)
-            ui.show_pca_2d(df_clustered, pca2=st.session_state.get('pca2', None), features=features)  
+            #ui.show_pca_3d(df_clustered, pca3=st.session_state.get('pca3', None), features=features)
+            #ui.show_pca_2d(df_clustered, pca2=st.session_state.get('pca2', None), features=features)  
+            tab3_show_pca_3d(df_clustered, pca3=st.session_state.get('pca3', None), features=features)
+            tab3_show_pca_2d(df_clustered, pca2=st.session_state.get('pca2', None), features=features)  
             
         # Tab4: 群集特徵 summary + boxplots
         with tab4:
-            ui.show_cluster_summary(df_clustered, features)
-            ui.show_cluster_feature_boxplots(df_clustered, params_saved['last_n_months'])
+            #ui.show_cluster_summary(df_clustered, features)
+            #ui.show_cluster_feature_boxplots(df_clustered, params_saved['last_n_months'])
+            tab4_show_cluster_summary(df_clustered, features)
+            tab4_show_cluster_feature_boxplots(df_clustered, params_saved['last_n_months'])
 
         # Tab5: 群集詳細
         with tab5:
-            ui.show_cluster_details(df_clustered)
+            #ui.show_cluster_details(df_clustered)
+            tab5_show_cluster_details(df_clustered)
             
         # Tab6: MoM, YoY
         with tab6:
-            ui.show_cluster_mom_yoy(df_clustered)    
+            tab6_show_cluster_mom_yoy(df_clustered)    
 
     else:        
         st.header("""使用 Python, LangGraph, Llama3.1, Streamlit 建立一個使用 Machine Learning 分群的股票營收分析工具,來幫助我們快速找出潛力股.""") 
