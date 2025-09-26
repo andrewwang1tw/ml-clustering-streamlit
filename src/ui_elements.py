@@ -327,21 +327,27 @@ def show_cluster_feature_boxplots(df_clustered, last_n_months):
     #
     fig, ax = plt.subplots(figsize=(6,3))
     sns.barplot(data=df_clustered, x='cluster', y='continuous_flag', estimator='mean', ax=ax)
-    ax.set_title(f'最近{last_n_months}個月,月增與年增同時成長', fontsize=10)
-    ax.set_xlabel('群集(cluster)', fontsize=10)
-    ax.set_ylabel('月增/年增同時連續成長', fontsize=10)
+    
+    #ax.set_title(f'最近{last_n_months}個月,月增與年增同時成長', fontsize=10)
+    #ax.set_ylabel('月增/年增同時連續成長', fontsize=10)
+    ax.set_title(f'mom/yoy growth for recent {last_n_months} months', fontsize=10)
+    ax.set_ylabel('mom/yoy growth', fontsize=10)
+    ax.set_xlabel('cluster', fontsize=10)    
+    
     ax.tick_params(axis='x', labelsize=8)
     ax.tick_params(axis='y', labelsize=8)
     st.pyplot(fig)
 
     #
-    for col, title in [('avg_mom','平均月增成長'), ('std_mom','月增標準差'),
-                       ('avg_yoy','平均年增成長'), ('std_yoy','年增標準差')]:
+    #for col, title in [('avg_mom','平均月增成長'), ('std_mom','月增標準差'), ('avg_yoy','平均年增成長'), ('std_yoy','年增標準差')]:
+    for col, title in [('avg_mom','avg_mom'), ('std_mom','std_mom'), ('avg_yoy','avg_yoy'), ('std_yoy','std_yoy')]:
         fig_c, ax_c = plt.subplots(figsize=(6,3))
         sns.boxplot(data=df_clustered, x='cluster', y=col, ax=ax_c)
+        #
         ax_c.set_title(f'{title}', fontsize=10)
-        ax_c.set_xlabel('群集(cluster)', fontsize=10)
         ax_c.set_ylabel(f'{title}', fontsize=10)
+        ax_c.set_xlabel('cluster', fontsize=10)        
+        #
         ax_c.tick_params(axis='x', labelsize=8)
         ax_c.tick_params(axis='y', labelsize=8)
         st.pyplot(fig_c)
