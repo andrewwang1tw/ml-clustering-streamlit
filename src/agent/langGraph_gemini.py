@@ -14,6 +14,7 @@ from langgraph.graph import StateGraph, START, END
 
 import google.generativeai as genai
 
+
 load_dotenv()    
 MODEL_LLM = os.getenv("GEMINI_MODEL")
 MODEL_KEY = os.getenv("GOOGLE_API_KEY")
