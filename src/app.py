@@ -5,7 +5,7 @@ from ml.clustering import run_analysis
 import ui.ui_main as ui
 from ui.tab0 import tab0_show_sales_data
 from ui.tab1 import tab1_show_correlation_heatmap
-from ui.tab2 import tab2_show_elbow_plot
+from ui.tab2 import tab2_show_elbow_plot, tab2_show_elbow_plot2
 from ui.tab3 import tab3_show_pca_2d, tab3_show_pca_3d
 from ui.tab4 import tab4_show_cluster_feature_boxplots, tab4_show_cluster_summary
 from ui.tab5 import tab5_show_cluster_details
@@ -59,7 +59,7 @@ def main():
         # Tab2: Elbow
         with tab2:
             #ui.show_elbow_plot(params_saved['k_min'], params_saved['k_max'], inertias, use_k, elbow_k)
-            tab2_show_elbow_plot(params_saved['k_min'], params_saved['k_max'], inertias, use_k, elbow_k)
+            tab2_show_elbow_plot2(params_saved['k_min'], params_saved['k_max'], inertias, use_k, elbow_k)
 
         # Tab3: PCA
         with tab3:
